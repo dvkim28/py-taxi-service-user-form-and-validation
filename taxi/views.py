@@ -113,12 +113,12 @@ class DriverUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("taxi:driver-list")
 
 
-class assign_driver(generic.View):
+class AssignDriver(generic.View):
     def post(self, request, pk):
-            car = Car.objects.get(pk=pk)
-            driver = request.user
-            if driver not in car.drivers.all():
-                car.drivers.add(driver)
-            else:
-                car.drivers.remove(driver)
-            return HttpResponseRedirect(reverse_lazy("taxi:driver-list"))
+        car = Car.objects.get(pk=pk)
+        driver = request.user
+        if driver not in car.drivers.all():
+            car.drivers.add(driver)
+        else:
+            car.drivers.remove(driver)
+        return HttpResponseRedirect(reverse_lazy("taxi:driver-list"))
